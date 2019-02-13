@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ScheduleYou :: Create A Class</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="schedule.css" type="text/css">
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <header>
+        
+        <img src="logo.png" alt="ScheduleYou Logo">
+        <h1>ScheduleYou</h1>
+      </header>
+
+
+      <nav class="menu">
+        <ul>
+          <li><a href="home.html" class="active">Home</a></li>
+          <li><a href="createclass.html">Create A Class</a></li>
+          <li><a href="createassignment.html">Create An Assignment</a></li>
+          <li><a href="account.html">Account Details</a></li>
+          <li><a href="login.html">Log Out</a></li>
+        </ul>
+      </nav>
+
+      <main>
+	  <div id="classForm">
+			<h2>Class Details</h2>
+			<p>Required fields are marked with an asterisk *</p>
+			<form method="post" action="#">
+			
+			  <label for="myClass">*Class:</label>
+			  <input type="text" name="myClass" id="myClass" size="35">
+			
+			  <label for="professor">*Professor:</label>
+			  <input type="text" name="professor" id="professor">
+
+			  <label for="date">Day(s):</label>
+			  <select id="date">
+				<option></option>
+				<option>Monday</option>
+				<option>Tuesday</option>
+				<option>Wednesday</option>
+				<option>Thursday</option>
+				<option>Friday</option>
+				<option>Saturday</option>
+				<option>Sunday</option>
+				<option>Mon/Wed/Fri</option>
+				<option>Mon/Wed</option>
+				<option>Tues/Thurs</option>
+			  </select> 
+
+			  <label for="classTime">Class Time:</label>
+			  <input type="time" name="classTime" id="classTime" min="00:00" max="23:59">
+
+			  <label for="myComments">Comments:</label>
+			  <textarea name="myComments" id="myComments" rows="2" cols="30"></textarea>
+				
+			  <button type="button" onclick="displayClasses()">Create</button>
+			</form>
+		</div>
+		<div id="listedClasses">
+			<h2>My Classes:</h2>
+		</div>
+		<ul id="classList"></ul>
+      </main>
+
+      <footer>
+        Copyright &copy; 2019 ScheduleYou<br>
+        <a href="mailto:HackStreetBoys@cis440.com">HackStreetBoys@cis440.com</a>
+      </footer>
+
+    </div>
+	<script>
+		function displayClasses()
+		{
+			var li = document.createElement("LI");
+			var className = document.getElementById("myClass").value;
+			var professor = document.getElementById("professor").value;
+			var days = document.getElementById("date").value;
+			var time = document.getElementById("classTime").value;
+			var comments = document.getElementById("myComments").value;
+			li.innerHTML = className+" on "+days+" at "+time;
+			document.getElementById("myClass").value = "";
+			document.getElementById("professor").value = "";
+			document.getElementById("date").value = "";
+			document.getElementById("classTime").value = "";
+			document.getElementById("myComments").value = "";
+			document.getElementById("classList").appendChild(li);
+		}
+	</script>
+  </body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ScheduleYou :: Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="schedule.css" type="text/css">
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <div id="loginPage">
+        <header>
+          <img src="logo.png" alt="ScheduleYou Logo">
+          <h1>ScheduleYou</h1>
+        </header>
+
+        <main>
+          <div id="login">
+            <p>Required fields are marked with an asterisk *</p>
+            <form method="post" action="#">
+              <label for="myUsername">*Username:</label>
+              <input type="text" name="myUsername" id="myUsername" required="required">
+
+              <label for="myFName">*First Name:</label>
+              <input type="text" name="myFName" id="myFName" required="required">
+
+              <label for="myLName">*Last Name:</label>
+              <input type="text" name="myLName" id="myLName" required="required">
+
+              <label for="myEmail">*E-mail:</label>
+              <input type="email" name="myEmail" id="myEmail" size="35" required="required">
+
+              <label for="myPhone">Phone:</label>
+              <input type="tel" name="myPhone" id="myPhone" maxlength="12">
+
+              <label for="myPassword">*Password:</label>
+              <input type="password" name="myPassword" id="myPassword" maxlength="12" required="required">
+                
+              <input type="submit" value="Create">
+            </form>
+            <a href="home.html">View Home</a>
+          </div>
+        </main>
+
+        <footer>
+          Copyright &copy; 2019 ScheduleYou<br>
+          <a href="mailto:HackStreetBoys@cis440.com">HackStreetBoys@cis440.com</a>
+        </footer>
+      </div>
+    </div>
+  </body>
+
+</html>
