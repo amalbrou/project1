@@ -1,11 +1,33 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>ScheduleYou :: Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="schedule.css" type="text/css">
-  </head>
+
+    <script type="text/javascript">
+        //passes account info to the server, to create an account request
+        function CreateAccount(id, fname, lname, email, phone, pass) {
+        var webMethod = "ProjectServices.asmx/RequestAccount";
+            var parameters = "{\"uid\":\"" + encodeURI(id) + "\",\"pass\":\"" + encodeURI(pass) + "\",\"firstName\":\"" + encodeURI(fname) + "\",\"lastName\":\"" + encodeURI(lname) + "\",\"email\":\"" + encodeURI(email) + "\",\"phone\":\"" + encodeURI(phone) + "\"}";
+        $.ajax({
+        type: "POST",
+        url: webMethod,
+        data: parameters,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (msg) {
+        showPanel('logonPanel');
+        alert("Account request pending approval...");
+        },
+        error: function (e) {
+        alert("boo...");
+        }
+        });
+        }
+    </script>
+</head>
 
   <body>
     <div id="wrapper">
@@ -18,7 +40,7 @@
         <main>
           <div id="login">
             <p>Required fields are marked with an asterisk *</p>
-            <form method="post" action="#">
+            <form onsubmit="CreateAccount($('#myUsername').val(), $('#myFName').val(), $('#myLName').val(), $('#myEmail').val(), $('#myPhone').val(), $('#myPassword').val()); return false;">
               <label for="myUsername">*Username:</label>
               <input type="text" name="myUsername" id="myUsername" required="required">
 
@@ -36,7 +58,7 @@
 
               <label for="myPassword">*Password:</label>
               <input type="password" name="myPassword" id="myPassword" maxlength="12" required="required">
-                
+
               <input type="submit" value="Create">
             </form>
             <a href="home.html">View Home</a>
