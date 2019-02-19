@@ -4,27 +4,30 @@
     <title>ScheduleYou :: Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="stylesheet" href="schedule.css" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script type="text/javascript">
         //passes account info to the server, to create an account request
         function CreateAccount(id, fname, lname, email, phone, pass) {
-        var webMethod = "ProjectServices.asmx/RequestAccount";
+            var webMethod = "ProjectServices.asmx/RequestAccount";
             var parameters = "{\"uid\":\"" + encodeURI(id) + "\",\"pass\":\"" + encodeURI(pass) + "\",\"firstName\":\"" + encodeURI(fname) + "\",\"lastName\":\"" + encodeURI(lname) + "\",\"email\":\"" + encodeURI(email) + "\",\"phone\":\"" + encodeURI(phone) + "\"}";
-        $.ajax({
-        type: "POST",
-        url: webMethod,
-        data: parameters,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (msg) {
-        showPanel('logonPanel');
-        alert("Account request pending approval...");
-        },
-        error: function (e) {
-        alert("boo...");
-        }
-        });
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    //showPanel('logonPanel');
+                    alert("Account request pending approval...");
+                },
+                error: function (e) {
+                    alert("boo...");
+                }
+            });
         }
     </script>
 </head>
@@ -59,7 +62,7 @@
               <label for="myPassword">*Password:</label>
               <input type="password" name="myPassword" id="myPassword" maxlength="12" required="required">
 
-              <input type="submit" value="Create">
+              <button type="submit">Create</button>
             </form>
             <a href="home.html">View Home</a>
           </div>
