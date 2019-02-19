@@ -1,38 +1,62 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>ScheduleYou :: Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="schedule.css" type="text/css">
-  </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-  <body>
-    <div id="wrapper">
-      <header>
-        <img src="logo.png" alt="ScheduleYou Logo">
-        <h1>ScheduleYou</h1>
-      </header>
+    <script type="text/javascript">
+        function LogOff() {
+            var webMethod = "AccountServices.asmx/LogOff";
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    if (msg.d) {
+                        window.location.href = "login.html";
+                    }
+                    else {
+                        alert("Unable to Logout");
+                    }
+                },
+                error: function (e) {
+                    alert("Error");
+                }
+            });
+        }
+    </script>
+</head >
 
-      <nav class="menu">
-        <ul>
-          <li><a href="home.html" class="active">Home</a></li>
-          <li><a href="createclass.html">Create A Class</a></li>
-          <li><a href="createassignment.html">Create An Assignment</a></li>
-          <li><a href="account.html">Account Details</a></li>
-          <li><a href="login.html">Log Out</a></li>
-        </ul>
-      </nav>
-      <main>
-        <h2>Overview</h2>
-      </main>
+                <body>
+                    <div id="wrapper">
+                        <header>
+                            <img src="logo.png" alt="ScheduleYou Logo">
+                                <h1>ScheduleYou</h1>
+              </header>
 
-      <footer>
-        Copyright &copy; 2019 ScheduleYou<br>
-        <a href="mailto:HackStreetBoys@cis440.com">HackStreetBoys@cis440.com</a>
-      </footer>
+                            <nav class="menu">
+                                <ul>
+                                    <li><a href="home.html" class="active">Home</a></li>
+                                    <li><a href="createclass.html">Create A Class</a></li>
+                                    <li><a href="createassignment.html">Create An Assignment</a></li>
+                                    <li><a href="account.html">Account Details</a></li>
+                                    <li><a onclick="LogOff()" href="#">Log Out</a></li>
+                                </ul>
+                            </nav>
+                            <main>
+                                <h2>Overview</h2>
+                            </main>
 
-    </div>
-  </body>
+                            <footer>
+                                Copyright &copy; 2019 ScheduleYou<br>
+                                    <a href="mailto:HackStreetBoys@cis440.com">HackStreetBoys@cis440.com</a>
+              </footer>
+
+            </div>
+          </body>
 
 </html>

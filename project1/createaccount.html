@@ -10,7 +10,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script type="text/javascript">
-        //passes account info to the server, to create an account request
+        function clearNewAccount() {
+            $('#myUsername').val("");
+            $('#myFName').val("");
+            $('#myLName').val("");
+            $('#myEmail').val("");
+            $('#myPhone').val("");
+            $('#myPassword').val("");
+        }
+
         function CreateAccount(id, fname, lname, email, phone, pass) {
             var webMethod = "ProjectServices.asmx/RequestAccount";
             var parameters = "{\"uid\":\"" + encodeURI(id) + "\",\"pass\":\"" + encodeURI(pass) + "\",\"firstName\":\"" + encodeURI(fname) + "\",\"lastName\":\"" + encodeURI(lname) + "\",\"email\":\"" + encodeURI(email) + "\",\"phone\":\"" + encodeURI(phone) + "\"}";
@@ -22,6 +30,8 @@
                 dataType: "json",
                 success: function (msg) {
                     alert("Account Created");
+                    clearNewAccount();
+                    window.location.href = "login.html";
                 },
                 error: function (e) {
                     alert("Unable to Create Account");
