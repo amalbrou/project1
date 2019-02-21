@@ -1,11 +1,35 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>ScheduleYou :: Create A Class</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="stylesheet" href="schedule.css" type="text/css">
-  </head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        function CreateClass(id, professor, days, time, comments) {
+            var webMethod = "ProjectServices.asmx/RequestClass";
+            var parameters = "{\"uid\":\"" + encodeURI(id) + "\",\"professor\":\"" + encodeURI(professor) + "\",\"days\":\"" + encodeURI(days) + "\",\"time\":\"" + encodeURI(time) + "\",\"comments\":\"" + encodeURI(comments) + "\"}";
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    alert("Class Created");
+                    window.location.href = "home.html";
+                },
+                error: function (e) {
+                    alert("Unable to Create Class");
+                }
+            });
+        }
+    </script>
+</head>
 
   <body>
     <div id="wrapper">
@@ -30,42 +54,38 @@
 	  <div id="classForm">
 			<h2>Class Details</h2>
 			<p>Required fields are marked with an asterisk *</p>
-			<form method="post" action="#">
-			
-			  <label for="myClass">*Class:</label>
-			  <input type="text" name="myClass" id="myClass" size="35">
-			
-			  <label for="professor">*Professor:</label>
-			  <input type="text" name="professor" id="professor">
+            <form onsubmit="CreateClass($('#myClass').val(), $('#professor').val(), $('#date').val(), $('#classTime').val(), $('#myComments').val()); return false;">
 
-			  <label for="date">Day(s):</label>
-			  <select id="date">
-				<option></option>
-				<option>Monday</option>
-				<option>Tuesday</option>
-				<option>Wednesday</option>
-				<option>Thursday</option>
-				<option>Friday</option>
-				<option>Saturday</option>
-				<option>Sunday</option>
-				<option>Mon/Wed/Fri</option>
-				<option>Mon/Wed</option>
-				<option>Tues/Thurs</option>
-			  </select> 
+                <label for="myClass">*Class:</label>
+                <input type="text" name="myClass" id="myClass" size="35">
 
-			  <label for="classTime">Class Time:</label>
-			  <input type="time" name="classTime" id="classTime" min="00:00" max="23:59">
+                <label for="professor">*Professor:</label>
+                <input type="text" name="professor" id="professor">
 
-			  <label for="myComments">Comments:</label>
-			  <textarea name="myComments" id="myComments" rows="2" cols="30"></textarea>
-				
-			  <button type="button" onclick="displayClasses()">Create</button>
-			</form>
+                <label for="date">Day(s):</label>
+                <select id="date">
+                    <option></option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+                    <option>Mon/Wed/Fri</option>
+                    <option>Mon/Wed</option>
+                    <option>Tues/Thurs</option>
+                </select>
+
+                <label for="classTime">Class Time:</label>
+                <input type="time" name="classTime" id="classTime" min="00:00" max="23:59">
+
+                <label for="myComments">Comments:</label>
+                <textarea name="myComments" id="myComments" rows="2" cols="30"></textarea>
+
+                <button type="submit">Create</button>
+            </form>
 		</div>
-		<div id="listedClasses">
-			<h2>My Classes:</h2>
-		</div>
-		<ul id="classList"></ul>
       </main>
 
       <footer>
@@ -74,24 +94,6 @@
       </footer>
 
     </div>
-	<script>
-		function displayClasses()
-		{
-			var li = document.createElement("LI");
-			var className = document.getElementById("myClass").value;
-			var professor = document.getElementById("professor").value;
-			var days = document.getElementById("date").value;
-			var time = document.getElementById("classTime").value;
-			var comments = document.getElementById("myComments").value;
-			li.innerHTML = className+" on "+days+" at "+time;
-			document.getElementById("myClass").value = "";
-			document.getElementById("professor").value = "";
-			document.getElementById("date").value = "";
-			document.getElementById("classTime").value = "";
-			document.getElementById("myComments").value = "";
-			document.getElementById("classList").appendChild(li);
-		}
-	</script>
   </body>
 
 </html>
