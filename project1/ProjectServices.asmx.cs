@@ -221,5 +221,28 @@ namespace project1
             }
             sqlConnection.Close();
         }
+
+        [WebMethod(EnableSession = true)]
+        public void DeleteClass(string className)
+        {
+                string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+                //this is a simple update, with parameters to pass in values
+                string sqlSelect = "delete from classes where ClassName=@classValue";
+
+                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+                MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+                sqlCommand.Parameters.AddWithValue("@classValue", HttpUtility.UrlDecode(className));
+
+                sqlConnection.Open();
+                try
+                {
+                    sqlCommand.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                }
+                sqlConnection.Close();
+        }
     }
 }
