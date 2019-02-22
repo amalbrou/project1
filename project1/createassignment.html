@@ -1,11 +1,35 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>ScheduleYou :: Create An Assignment</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="stylesheet" href="schedule.css" type="text/css">
-  </head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        function CreateAssignment(id, date, time, comments, className) {
+            var webMethod = "ProjectServices.asmx/RequestAssignment";
+            var parameters = "{\"uid\":\"" + encodeURI(id) + "\",\"date\":\"" + encodeURI(date) + "\",\"time\":\"" + encodeURI(time) + "\",\"comments\":\"" + encodeURI(comments) + "\",\"class\":\"" + encodeURI(className) + "\"}";
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    alert("Assignment Created");
+                    window.location.href = "home.html";
+                },
+                error: function (e) {
+                    alert("Unable to Create Assignment");
+                }
+            });
+        }
+    </script>
+</head>
 
   <body>
     <div id="wrapper">
@@ -28,59 +52,31 @@
       <main>
         <h2>Assignment Details</h2>
         <p>Required fields are marked with an asterisk *</p>
-        <form method="post" action="#">
-          <label for="asmtName">*Assignment Name:</label>
-          <input type="text" name="asmtName" id="asmtName">
+        <form onsubmit="CreateAssignment($('#asmtName').val(), $('#dueDate').val(), $('#dueTime').val(), $('#myComments').val(), $('#myClass').val()); return false;">
+            <label for="asmtName">*Assignment Name:</label>
+            <input type="text" name="asmtName" id="asmtName">
 
-          <label for="professor">*Professor:</label>
-          <input type="text" name="professor" id="professor">
+            <label for="dueDate">Due Date:</label>
+            <input type="date" name="dueDate" id="dueDate">
 
-          <label for="myClass">*Class:</label>
-          <input type="text" name="myClass" id="myClass" size="35">
+            <label for="dueTime">Due Time:</label>
+            <input type="time" name="dueTime" id="dueTime" min="00:00" max="23:59">
 
-          <label for="dueDate">Due Date:</label>
-          <input type="date" name="dueDate" id="dueDate">
+            <label for="myComments">Comments:</label>
+            <textarea name="myComments" id="myComments" rows="2" cols="30"></textarea>
 
-          <label for="dueTime">Due Time:</label>
-          <input type="time" name="dueTime" id="dueTime" min="00:00" max="23:59">
+            <label for="myClass">*Class:</label>
+            <input type="text" name="myClass" id="myClass" size="35">
 
-          <label for="myComments">Comments:</label>
-          <textarea name="myComments" id="myComments" rows="2" cols="30"></textarea>
-            
-          <button type="button" onclick="displayAssignments()">Create</button>
+            <button type="submit">Create</button>
         </form>
-		<div id="listedAssignments">
-			<h2>My Assignments:</h2>
-		</div>
-		<ul id="assignmentList"></ul>
       </main>
 
       <footer>
         Copyright &copy; 2019 ScheduleYou<br>
         <a href="mailto:HackStreetBoys@cis440.com">HackStreetBoys@cis440.com</a>
       </footer>
-
     </div>
-	<script>
-		function displayAssignments()
-		{
-			var li = document.createElement("LI");
-			var assignmentName = document.getElementById("asmtName").value;
-			var professor = document.getElementById("professor").value;
-			var myClass = document.getElementById("myClass").value;
-			var dueDate = document.getElementById("dueDate").value;
-			var dueTime = document.getElementById("dueTime").value;
-			var comments = document.getElementById("myComments").value;
-			li.innerHTML = assignmentName+" for "+myClass+" is due on "+dueDate+" at "+dueTime;
-			document.getElementById("asmtName").value = "";
-			document.getElementById("professor").value = "";
-			document.getElementById("myClass").value = "";
-			document.getElementById("dueDate").value = "";
-			document.getElementById("dueTime").value = "";
-			document.getElementById("myComments").value = "";
-			document.getElementById("assignmentList").appendChild(li);
-		}
-	</script>
   </body>
 
 </html>
