@@ -12,7 +12,7 @@
     <script type="text/javascript">
         function CreateAssignment(id, date, time, comments, className) {
             var webMethod = "ProjectServices.asmx/RequestAssignment";
-            var parameters = "{\"uid\":\"" + encodeURI(id) + "\",\"date20.\":\"" + encodeURI(date) + "\",\"time\":\"" + encodeURI(time) + "\",\"comments\":\"" + encodeURI(comments) + "\",\"class\":\"" + encodeURI(className) + "\"}";
+            var parameters = "{\"uid\":\"" + encodeURI(id) + "\",\"date\":\"" + encodeURI(date) + "\",\"time\":\"" + encodeURI(time) + "\",\"comments\":\"" + encodeURI(comments) + "\",\"className\":\"" + encodeURI(className) + "\"}";
             $.ajax({
                 type: "POST",
                 url: webMethod,
@@ -57,7 +57,7 @@
             <input type="text" name="asmtName" id="asmtName">
 
             <label for="dueDate">Due Date:</label>
-            <input type="date" name="dueDate" id="dueDate">
+            <input type="text" name="dueDate" id="dueDate" placeholder="YYYY-MM-DD">
 
             <label for="dueTime">Due Time:</label>
             <input type="time" name="dueTime" id="dueTime" min="00:00" max="23:59">
