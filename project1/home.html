@@ -54,8 +54,11 @@
                             var acct;
                             //if they have access to admin-level info (like userid and password) then
                             //create output that has an edit option
-                            acct = "class #: " + classesArray[i].cid + " class name: " + classesArray[i].className + " days: " + classesArray[i].days + " time: " + classesArray[i].time;
-                            $("#mainSection").append(acct);
+                            var li = document.createElement("LI");
+                            li.setAttribute("id", "msLi" + [i]);
+                            acct = "<strong>class #:</strong> " + classesArray[i].cid + " <strong>class Name:</strong> " + classesArray[i].className + " <strong>Days:</strong> " + classesArray[i].days + " <strong>Time:</strong> " + classesArray[i].time;
+                            li.innerHTML = acct;
+                            $("#mainSection").append(li);
                         }
                     }
                 },
@@ -64,37 +67,105 @@
                 }
             });
         }
+
+        var assignmentsArray;
+
+        //this function grabs accounts and loads our account window
+        function LoadAssignments() {
+            var webMethod = "ProjectServices.asmx/GetAssignments";
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    if (msg.d.length > 0) {
+
+                        assignmentsArray = msg.d;
+                        for (var i = 0; i < assignmentsArray.length; i++) {
+                            var asmt;
+                            if (classesArray[i].className == assignmentsArray[i].className) {
+                                var embededUL = document.createElement("UL");
+                                var embededLI = document.createElement("LI");
+                                asmt = "<strong>ASMT #:</strong> " + assignmentsArray[i].aid + " <strong>ASMT Name:</strong> " + assignmentsArray[i].assignmentName + " <strong>Class:</strong> " + assignmentsArray[i].className;
+                                embededLI.innerHTML = asmt;
+                                embededUL.appendChild(embededLI);
+                                $("#msLi"+[i]).append(embededUL);
+                            }
+                            else if (classesArray[i].className != assignmentsArray[i].className) {
+
+                                var li = document.createElement("LI");
+                                // below is with date and time included
+                                //asmt = "<strong>ASMT #:</strong> " + assignmentsArray[i].aid + " <strong>ASMT Name:</strong> " + assignmentsArray[i].assignmentName + " <strong>Due Date:</strong> " + assignmentsArray[i].dueDate + " <strong>Due Time:</strong> " + assignmentsArray[i].dueTime + " <strong>Class:</strong> " + assignmentsArray[i].className;
+                                asmt = "<strong>ASMT #:</strong> " + assignmentsArray[i].aid + " <strong>ASMT Name:</strong> " + assignmentsArray[i].assignmentName + " <strong>Class:</strong> " + assignmentsArray[i].className;
+                                li.innerHTML = asmt;
+                                $("#asmtSection").append(li);
+                            }
+                        }
+                    }
+                },
+                error: function (e) {
+                    alert("Error");
+                }
+            });
+        }
+
+        function DeleteClass() {
+            var webMethod = "AccountServices.asmx/DeleteClass";
+            var parameters = "{\"className\":\"" + encodeURI(className) + "\"}";
+
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    alert("Class Deleted")
+                },
+                error: function (e) {
+                    alert("Unable to delete class");
+                }
+            });
+        }
     </script>
 </head >
 
-                <body>
-                    <div id="wrapper">
-                        <header>
-                            <img src="logo.png" alt="ScheduleYou Logo">
-                                <h1>ScheduleYou</h1>
-              </header>
+<body>
+    <div id="wrapper">
+        <header>
+            <img src="logo.png" alt="ScheduleYou Logo">
+                <h1>ScheduleYou</h1>
+        </header>
 
-                            <nav class="menu">
-                                <ul>
-                                    <li><a href="home.html" class="active">Home</a></li>
-                                    <li><a href="createclass.html">Create A Class</a></li>
-                                    <li><a href="createassignment.html">Create An Assignment</a></li>
-                                    <li><a href="account.html">Account Details</a></li>
-                                    <li><a onclick="LogOff()" href="#">Log Out</a></li>
-                                </ul>
-                            </nav>
-                            <main>
-                                <h2>Overview</h2>
-                                <button onclick="LoadClasses()">Load</button>
-                                <p id="mainSection"></p>
-                            </main>
+        <nav class="menu">
+            <ul>
+                <li><a href="home.html" class="active">Home</a></li>
+                <li><a href="login.html">Log In</a></li>
+                <li><a href="createclass.html">Create A Class</a></li>
+                <li><a href="createassignment.html">Create An Assignment</a></li>
+                <li><a href="account.html">Account Details</a></li>
+                <li><a onclick="LogOff()" href="#">Log Out</a></li>
+            </ul>
+        </nav>
+        <main>
+            <h2>Welcome to your schedule!</h2>
+            <ul id="mainSection"></ul>
+            <ul id="asmtSection"></ul>
+            <button onclick="LoadClasses(); LoadAssignments();" id="viewBtn">View Your Classes</button>
+            <form onsubmit="DeleteClass($('#className').val()); return false;">
+                <label for="className">Class Name:</label>
+                <input type="text" name="className" id="className">
+                <button type="submit">Delete Class</button>
+            </form>
+        </main>
 
-                            <footer>
-                                Copyright &copy; 2019 ScheduleYou<br>
-                                    <a href="mailto:HackStreetBoys@cis440.com">HackStreetBoys@cis440.com</a>
-              </footer>
+        <footer>
+            Copyright &copy; 2019 ScheduleYou<br>
+                <a href="mailto:HackStreetBoys@cis440.com">HackStreetBoys@cis440.com</a>
+        </footer>
 
-            </div>
-          </body>
+    </div>
+</body>
 
 </html>

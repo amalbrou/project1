@@ -294,5 +294,54 @@ namespace project1
                 return new ClassInfo[0];
             }
         }
+
+        [WebMethod(EnableSession = true)]
+        public AssignmentInfo[] GetAssignments()
+        {
+            //check out the return type.  It's an array of Account objects.  You can look at our custom Account class in this solution to see that it's 
+            //just a container for public class-level variables.  It's a simple container that asp.net will have no trouble converting into json.  When we return
+            //sets of information, it's a good idea to create a custom container class to represent instances (or rows) of that information, and then return an array of those objects.  
+            //Keeps everything simple.
+
+            //WE ONLY SHARE ACCOUNTS WITH LOGGED IN USERS!
+            if (Session["id"] != null)
+            {
+                DataTable sqlDt = new DataTable("assignments");
+
+                string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+                string sqlSelect = "select aid, assignmentName, className from assignments";
+
+                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+                MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+                //gonna use this to fill a data table
+                MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+                //filling the data table
+                sqlDa.Fill(sqlDt);
+
+                //loop through each row in the dataset, creating instances
+                //of our container class Account.  Fill each acciount with
+                //data from the rows, then dump them in a list.
+                List<AssignmentInfo> assignments = new List<AssignmentInfo>();
+                for (int i = 0; i < sqlDt.Rows.Count; i++)
+                {
+                    assignments.Add(new AssignmentInfo
+                    {
+                        aid = Convert.ToInt32(sqlDt.Rows[i]["aid"]),
+                        assignmentName = sqlDt.Rows[i]["assignmentName"].ToString(),
+                        //dueDate = sqlDt.Rows[i]["dueDate"].ToString(),
+                        //dueTime = sqlDt.Rows[i]["dueTime"].ToString(),
+                        className = sqlDt.Rows[i]["className"].ToString()
+                    });
+                }
+                //convert the list of accounts to an array and return!
+                return assignments.ToArray();
+            }
+            else
+            {
+                //if they're not logged in, return an empty array
+                return new AssignmentInfo[0];
+            }
+        }
     }
 }
