@@ -223,16 +223,16 @@ namespace project1
         }
 
         [WebMethod(EnableSession = true)]
-        public void DeleteClass(string className)
+        public void DeleteClass(string classNumber)
         {
                 string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
                 //this is a simple update, with parameters to pass in values
-                string sqlSelect = "delete from classes where ClassName=@classValue";
+                string sqlSelect = "delete from classes where CID=@classValue;";
 
                 MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
                 MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
 
-                sqlCommand.Parameters.AddWithValue("@classValue", HttpUtility.UrlDecode(className));
+                sqlCommand.Parameters.AddWithValue("@classValue", HttpUtility.UrlDecode(classNumber));
 
                 sqlConnection.Open();
                 try
@@ -243,6 +243,29 @@ namespace project1
                 {
                 }
                 sqlConnection.Close();
+        }
+
+        [WebMethod(EnableSession = true)]
+        public void DeleteAssignment(string assignmentNumber)
+        {
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+            //this is a simple update, with parameters to pass in values
+            string sqlSelect = "delete from assignments where AID=@assignmentValue;";
+
+            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+            MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@assignmentValue", HttpUtility.UrlDecode(assignmentNumber));
+
+            sqlConnection.Open();
+            try
+            {
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+            }
+            sqlConnection.Close();
         }
 
         [WebMethod(EnableSession = true)]
