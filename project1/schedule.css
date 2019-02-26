@@ -61,7 +61,7 @@ main {
 label {
     float: left;
     text-align: right;
-    width: 120px;
+    width: 130px;
     padding-right: 10px;
 }
 
@@ -70,9 +70,13 @@ input, select, textarea {
     margin-bottom: 20px;
 }
 
-    input[type=submit] {
+input[type=submit] {
         margin-left: 130px;
     }
+
+#myPassword, #myUsername { 
+    width: 125px;
+}
 
 footer {
     text-align: center;
@@ -97,13 +101,13 @@ footer {
     padding: 30px 0px 30px 0px;
 }
 
-    #loginPage #login {
-        display: inline-block;
-    }
+#loginPage #login {
+    display: inline-block;
+}
 
-    #loginPage a {
-        color: #ADD8E6;
-    }
+#loginPage a {
+    color: #ADD8E6;
+}
 
 #viewBtn {
     color: #000000;
@@ -146,9 +150,10 @@ footer {
 }
 
 #homepage label {
-    width: 125px;
+    width: 150px;
+    text-align: left;
 }
 
-input, input[type=submit] {
+#homepage input, #homepage input[type=submit] {
     margin-left: 150px;
 }
