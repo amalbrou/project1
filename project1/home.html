@@ -111,7 +111,7 @@
             });
         }
 
-        function DeleteClass() {
+        function DeleteClass(classNumber) {
             var webMethod = "ProjectServices.asmx/DeleteClass";
             var parameters = "{\"classNumber\":\"" + encodeURI(classNumber) + "\"}";
 
@@ -130,7 +130,7 @@
             });
         }
 
-        function DeleteAssignment() {
+        function DeleteAssignment(assignmentNumber) {
             var webMethod = "ProjectServices.asmx/DeleteAssignment";
             var parameters = "{\"assignmentNumber\":\"" + encodeURI(assignmentNumber) + "\"}";
 

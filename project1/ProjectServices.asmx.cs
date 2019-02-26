@@ -227,12 +227,14 @@ namespace project1
         {
                 string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
                 //this is a simple update, with parameters to pass in values
-                string sqlSelect = "delete from classes where CID=@classValue;";
+                string sqlSelect = "delete from classes where ClassName=@classValue;";
 
                 MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
                 MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
 
-                sqlCommand.Parameters.AddWithValue("@classValue", HttpUtility.UrlDecode(classNumber));
+            //sqlCommand.Parameters.AddWithValue("@classValue", HttpUtility.UrlDecode(classNumber));
+            sqlCommand.Parameters.Add("@classValue", MySqlDbType.String);
+            sqlCommand.Parameters["@classValue"].Value = HttpUtility.UrlDecode(classNumber);
 
                 sqlConnection.Open();
                 try

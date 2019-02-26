@@ -91,7 +91,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="createaccount.html" />
+    <Content Include="createassignment.html" />
+    <Content Include="createclass.html" />
     <Content Include="Global.asax" />
+    <Content Include="home.html" />
+    <Content Include="login.html" />
+    <Content Include="schedule.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
