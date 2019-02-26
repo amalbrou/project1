@@ -82,7 +82,7 @@
                             var asmt;
                             var li = document.createElement("LI");
                             li.setAttribute("id", "msLi" + [i]);
-                            asmt = "<strong>Assignment #:</strong> " + assignmentsArray[i].aid + " <strong>Assignment Name:</strong> " + assignmentsArray[i].assignmentName + " <strong>Due Date:</strong> " + assignmentsArray[i].dueDate + " <strong>Due Time:</strong> " + assignmentsArray[i].dueTime + " <strong>Class Name:</strong> " + assignmentsArray[i].className;
+                            asmt = "<strong>Assignment #:</strong> " + assignmentsArray[i].aid + " <strong>Assignment Name:</strong> " + assignmentsArray[i].assignmentName + " <strong>Class Name:</strong> " + assignmentsArray[i].className;
                             li.innerHTML = asmt;
                             $("#asmtSection").append(li);
                             //if (classesArray[i].className == assignmentsArray[i].className) {
@@ -170,18 +170,23 @@
         </nav>
         <main>
             <h2>Welcome to your schedule!</h2>
+
+            <input type="submit" onclick="LoadClasses(); LoadAssignments();" id="viewBtn" value="View Your Classes">
+
             <ul id="mainSection"></ul>
             <ul id="asmtSection"></ul>
-            <button onclick="LoadClasses(); LoadAssignments();" id="viewBtn">View Your Classes</button>
+
+
             <form onsubmit="DeleteClass($('#classNumber').val()); return false;">
-                <label for="classNumber">Class Number:</label>
+                <label for="classNumber">Class #:</label>
                 <input type="text" name="classNumber" id="classNumber">
-                <button type="submit">Delete Class</button>
+                <input type="submit" class="deleteBtn" value="Delete Class">
             </form>
+
             <form onsubmit="DeleteAssignment($('#assignmentNumber').val()); return false;">
-                <label for="assignmentNumber">Assignment Number:</label>
+                <label for="assignmentNumber">Assignment #:</label>
                 <input type="text" name="assignmentNumber" id="assignmentNumber">
-                <button type="submit">Delete Assignment</button>
+                <input type="submit" class="deleteBtn" value="Delete Assignment">
             </form>
         </main>
 

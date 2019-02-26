@@ -116,12 +116,13 @@ footer {
     font-family: "Courier", "Times New Roman", "serif";
 }
 
-#mainSection li {
+#mainSection {
     list-style-type: none;
     background-color: #e0f2fb;
     color: #000000;
     margin-bottom: 20px;
     padding: 10px;
+    margin-left: 150px;
 }
 
 #asmtSection {
@@ -130,4 +131,24 @@ footer {
     color: #000000;
     margin-bottom: 20px;
     padding: 10px;
+    margin-left: 150px;
+}
+
+#deleteBtn {
+    color: #000000;
+    background-color: #ccc;
+    text-align: center;
+    width: 100px;
+    height: 25px;
+    font-size: medium;
+    border: none;
+    font-family: "Courier", "Times New Roman", "serif";
+}
+
+#homepage label {
+    width: 125px;
+}
+
+input, input[type=submit] {
+    margin-left: 150px;
 }
