@@ -126,7 +126,7 @@ footer {
     color: #000000;
     margin-bottom: 20px;
     padding: 10px;
-    margin-left: 150px;
+    margin-left: 140px;
 }
 
 #asmtSection {
@@ -135,25 +135,27 @@ footer {
     color: #000000;
     margin-bottom: 20px;
     padding: 10px;
-    margin-left: 150px;
+    margin-left: 140px;
 }
 
-#deleteBtn {
+.deleteBtn {
     color: #000000;
     background-color: #ccc;
     text-align: center;
-    width: 100px;
+    width: 175px;
     height: 25px;
     font-size: medium;
     border: none;
     font-family: "Courier", "Times New Roman", "serif";
+    margin-left: 200px;
 }
 
 #homepage label {
-    width: 150px;
+    width: 130px;
     text-align: left;
 }
 
 #homepage input, #homepage input[type=submit] {
-    margin-left: 150px;
+    margin-left: 130px;
+    width: 175px;
 }
